@@ -1,13 +1,16 @@
 "use client"
 import React, { useState } from 'react';
-
+import ListaEnlazadaSimple   from './utilities/listaenlazadasimple';
 
 export const HomePage = () => {
+
+  const listaEmpleados = new ListaEnlazadaSimple();
   
   const [nombre,setNombre] = useState(" ")
   const [edad,setEdad] = useState(" ")
   const [correo,setCorreo] = useState(" ")
   const [genero,setGenero] = useState("Masculino")
+
   const [resultados, setResultados] = useState(" ");
   const [mostrarBoton, setMostrarBoton] = useState(false);
   
@@ -15,16 +18,29 @@ export const HomePage = () => {
   const guardarDatos = (e: React.FormEvent) => {
     e.preventDefault();
   
+    listaEmpleados.insertar({
+      nombre: nombre,
+      edad: edad,
+      correo: correo,
+      genero: genero
+    });
+
+    console.log(listaEmpleados.impresion());
+
     setResultados(
       'Nombre: ' + nombre + '\nEdad: ' + edad +'\nCorreo: ' + correo +'\nGenero: ' + genero
+      
     );
+
   
+
     setNombre('');
     setEdad('');
     setCorreo('');
     setGenero('');
   
     setMostrarBoton(true);
+
   };
 
     function limpiar() {
@@ -42,6 +58,7 @@ export const HomePage = () => {
       <header className='bg-blue-400 border border-transparent rounded-lg p-4 mb-5'>
         <div className='flex justify-center'>
           <div className='flex items-center'>
+            
             <img src='https://cdn.discordapp.com/emojis/978931095536025620.gif?size=96&quality=lossless' alt='GIF 1' className='w-8 h-8 mr-2' />
             <p className='text-2xl uppercase text-white'>Empleados</p>
             <img src='https://cdn.discordapp.com/emojis/978931095536025620.gif?size=96&quality=lossless' alt='GIF 2' className='w-8 h-8 ml-2' />
